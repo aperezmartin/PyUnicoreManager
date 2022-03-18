@@ -13,9 +13,9 @@ See LICENSE file for licensing information
 For this example we use a certain Server with a particular partition and project, allocating 1 node for 10 minutes for a single job.
 
     setup={}
-    setup["server"]= myServer
+    setup["server"] = myServer
     setup["server_endpoint"] = myPartition
-    setup["JobArguments"]={"Project": myProject, 'Resources': {"Queue": myQueue, "Nodes" : "1","Runtime" : "10m"}}
+    setup["JobArguments"] = {"Project": myProject, 'Resources': {"Queue": myQueue, "Nodes" : "1","Runtime" : "10m"}}
 
 # Authentication from EBRAINS notebook on the HPC system
 
@@ -23,23 +23,24 @@ For this example we use a certain Server with a particular partition and project
 
 # Authentication from personal PC on the HPC system
 
-    myToken = b64encode(b"myUser:myPassword").decode("ascii")
+    myToken = Utils.generateToken(myLDAPuser, myLDAPpassword)
     authentication = Authentication(token=myToken, access=Method.ACCESS_LDAP, server=setup['server'])
 
 # Environemnt for the framework
 
-    env = Environment_UNICORE(auth=authentication, env_from_user= setup)
+    env = Environment_UNICORE(auth=authentication, env_from_user=setup)
    
 # Instanciate the framework
 
 It would check if the jobs storage list is full, in that case would clean it up.
 
-    pym = PyUnicoreManager(environment=env, clean_job_storages=True, verbose=True)
+    pym = PyUnicoreManager(environment=env, clean_job_storages=True, verbose=False)
 
 # Launching a simple job
 
-All the job steps would be a list of command lines. The "job" object contains important information and the "result" is a dictionary with the keys "stderr" and "stdout".
+All the job steps would be a list of command lines. The "job" object contains important information where the user can access later on. Each job has its Storage mapping and an unique identification number, in other words, jobs result can be accessible at any time. The "result" is a dictionary with the keys "stderr" and "stdout" and the whole output accumulated during the execution of the job.
 
     job_steps = ["ls -la","pwd"]
-    job, result= pym.one_run(job_steps, setup["JobArguments"])
+    job, result= pym.one_run(steps=job_steps, parameters=setup["JobArguments"], wait_process=True)
+    print(result)
     
