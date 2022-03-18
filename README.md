@@ -8,6 +8,16 @@ For more information about the Human Brain Project, see https://www.humanbrainpr
 
 See LICENSE file for licensing information
 
+# First steps
+
+Install it from Pypi:
+
+    pip install -U pyunicoremanager
+    
+How to use it:
+
+    import pyunicoremanager.core import *
+    
 
 # Important configuration for the framework
 For this example we use a certain Server with a particular partition and project, allocating 1 node for 10 minutes for a single job.
