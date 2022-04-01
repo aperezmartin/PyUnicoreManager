@@ -123,6 +123,9 @@ class PyUnicoreManager(object):
             elif Method.ACCESS_COLLAB == self.env.conn_info["methodToAccess"]:
                 self.transport = unicore_client.Transport(self.env.conn_info["token"])
             try:
+                # Important: To be sure of selecting the proper internal mapping of UNICORE links to a specific project
+                self.transport.preferences = "group:" + str(self.env.job_info["server_project"]) # used to Upload/download files
+                
                 self.registry = unicore_client.Registry(self.transport, self.env.conn_info["serverToRegister"])
                 self.site = self.registry.site(self.env.conn_info["serverToConnect"])
 
@@ -322,4 +325,3 @@ class PyUnicoreManager(object):
         return cmd_job, result_job
 
 #################
-
