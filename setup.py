@@ -11,7 +11,7 @@ install_requires = [
 
 setuptools.setup(
     name="pyunicoremanager",
-    version="0.0.2",
+    version="0.0.4",
     author="Aarón Pérez Martín",
     author_email="a.perez.martin@fz-juelich.de",
     description="Python wrapper of PyUnicore to deploy jobs on UNICORE systems",
