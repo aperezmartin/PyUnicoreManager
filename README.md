@@ -25,7 +25,8 @@ For this example we use a certain Server with a particular partition and project
     setup={}
     setup["server"] = myServer
     setup["server_endpoint"] = myPartition
-    setup["JobArguments"] = {"Project": myProject, 'Resources': {"Queue": myQueue, "Nodes" : "1","Runtime" : "10m"}}
+    setup["server_project"] = myProject folder
+    setup["JobArguments"] = {"Project": myProject name, 'Resources': {"Queue": myQueue, "Nodes" : "1","Runtime" : "10m"}}
 
 # Authentication from EBRAINS notebook on the HPC system
 
