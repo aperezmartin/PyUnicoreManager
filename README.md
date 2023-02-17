@@ -17,7 +17,7 @@ Install it from Pypi:
     
 How to use it:
 
-    import pyunicoremanager.core import *
+    from pyunicoremanager.core import *
     
 
 # Important configuration for the framework
