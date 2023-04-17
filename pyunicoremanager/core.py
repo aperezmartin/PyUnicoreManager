@@ -273,7 +273,7 @@ class PyUnicoreManager(object):
             else:
                 logss.info('Job is running!. You could stop it!')
         except Exception as e:
-            logss.error(str(e))
+            logss.error("Job error:" + str(e))
             return None, None
         return cmd_job, result_job
 
@@ -381,18 +381,19 @@ class GUI():
         #self.endpoints = ["HOME", "PROJECT",  "SCRATCH"]        
         #self.access_list = ['ACCESS_LDAP', 'ACCESS_COLLAB']
         #self.user_info = ""#pym.client.access_info()
+        queues = list(self.pym.client.get_compute()[0].get_queues().keys())
         
         self.user_info = {"username":self.pym.client.access_info()['xlogin']['UID'],
                          "email":self.pym.client.access_info()['dn'].split('=')[-1],
                          "projects":self.pym.client.access_info()['xlogin']['availableGroups'],
                          "def_project":self.pym.client.access_info()['xlogin']['group'],
-                         "queues":self.pym.client.access_info()['queues']['availableQueues'],
+                         "queues": queues,
                          "def_queue":self.pym.client.access_info()['queues']['selected']}
         #self.user = 'perezmartin1' #self.user_info['xlogin']['UID']
         #self.email= "a.perez.martin@fz-juelich.de" #self.user_info['dn'].split('=')[-1]
         #self.projects = ['cslns'] #self.user_info['xlogin']['availableGroups']
         #self.def_project='cslns'# self.user_info['group']
-        #self.queues = ['gpus', 'batch', 'develgpus']#self.user_info['queues']['availableQueues']
+        #self.queues = ['gpus', 'batch', 'develgpus'] #self.user_info['queues']['availableQueues']
         #self.def_queue = 'gpus'#self.user_info['queues']['selected']
         
     def change_children(self,obj):
@@ -487,7 +488,7 @@ class GUI():
         if self.setup["server_project"] in UNICORE_projects_errors.keys():
             project_correction = UNICORE_projects_errors[self.setup["server_project"]]
         else:
-            project_correction = UNICORE_projects_errors[self.setup["server_project"]]
+            project_correction = self.setup["server_project"]
         
         self.setup["JobArguments"] = {"Project": project_correction, 'Resources': {"Queue": self.tabs[1][1].value, "Nodes" : str(self.tabs[1][2].value),"Runtime" : str(int(self.tabs[1][3].value*100))+"m"}}
 
