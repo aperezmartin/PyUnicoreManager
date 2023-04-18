@@ -12,8 +12,10 @@ See LICENSE file for licensing information
 
 Install it from Pypi:
 
-    pip install pyunicore==0.14.0
-    pip install -U pyunicoremanager
+    pip3 install --upgrade setuptools
+    pip3 install ipywidgets
+    pip3 install pyunicore==0.14.0
+    pip3 install -U pyunicoremanager
     
 How to use it:
 
